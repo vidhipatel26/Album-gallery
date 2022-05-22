@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+}  
+
+img.notFound {
+    display: block;
+    margin-top: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+  div.loader {
+    font-size: 200px;
+    color: #000;
+    width: 100%;
+    height: 100vh; 
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .pagination {
+    display: -webkit-box;
+    float: right;
+  }
+  
+  .container {
+    width: calc(100% - 40px);
+    display: flex;
+    position: absolute;
+    bottom: 0px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: right;
+    background: #a1a1a1;
+    padding: 20px;
+  }
+
+  .pagination a {
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+  }
+
+  .dropBox {
+    margin-right: 20px;
+    outline: none;
+  }
+  
+  .pagination li.page-item.active a.page-link {
+    color: #445565 !important;
+    background-color: skyblue !important;
+    border-color: #ced4da !important;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+  
+  .pagination a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .pagination a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  li.page-item {
+    list-style-type: none;
+    margin: 0 5px;
+}
