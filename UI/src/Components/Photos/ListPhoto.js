@@ -6,22 +6,36 @@ import usePhotoListDetails from '../../hooks/usePhotoListDetails'
 import useAppSelector from '../../Redux/hooks'
 import classes from '../../css/Common.module.css';
 import useUserListDispatch from '../../Redux/userLists/usersListAction'
+import useAlbumListDetails from '../../hooks/useAlbumListDetails'
+import useUserListDetails from '../../hooks/useUserListDetails'
 
 const ListPhoto = (props) => {
     const { photoList, loader } = usePhotoListDetails()
     const { updateUserId } = useUserListDispatch()
     const photos = useAppSelector((state) => state.photoList.photos)
-    const { albums } = useAppSelector((state) => state.albumList)
+    const { albums, pageLimit } = useAppSelector((state) => state.albumList)
     const { users, userId } = useAppSelector((state) => state.userList)
-    const userData = users.filter(user => user.id === userId)
-    const albumData = albums && albums.filter(album => album.id === Number(props.location.albumId))
+    const pathName = props.location.pathname.split('/')
+    const activeUserId = Number(pathName.find((e) => e.includes('active')).split('=')[1])
+    const clickedUserId = userId || activeUserId
+    const clickedAlbumId = Number(props.location.albumId) || Number((props.match.params.id).split('=')[1])
+    const userData = users.filter(user => user.id === clickedUserId)
+    const albumData = albums && albums.filter(album => album.id === clickedAlbumId)
     const userName = userData && userData.length > 0 && userData[0].name || ''
     const albumTitle = albumData && albumData.length > 0 && albumData[0].title || ''
     const [currentPhotoes, setCurrentPhotoes] = useState(photos)
+    const { albumsList } = useAlbumListDetails()
+    const { usersList } = useUserListDetails()
 
     useEffect(() => {
-        updateUserId(Number(props.location.userId))
-        photoList(Number(props.match.params.id))
+        updateUserId(clickedUserId)
+        photoList(clickedAlbumId)
+        if (!albums.length > 0) {
+            albumsList(pageLimit)
+        }
+        if (!users.length > 0) {
+            usersList()
+        }
     }, [])
 
 

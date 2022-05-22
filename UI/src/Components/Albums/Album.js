@@ -15,7 +15,7 @@ const Album = (props) => {
 
     return (
         <div className={classes.imgWrapper}>
-            <Link to={{ pathname: `/photos/${id}/`, userId: userId, albumId: id}}>
+            <Link to={{ pathname: `/photos/albumId=${id}/activeUserId=${userId}/`, userId: userId, albumId: id}}>
                 <div className={classes.albumItemWrapper}>
                     <img src={imageSrc} className={classes.albumImg} />
                     <div className={classes.albumName}>{getUserName(userId)}</div>
