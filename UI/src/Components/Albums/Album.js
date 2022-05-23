@@ -10,7 +10,7 @@ const Album = (props) => {
         const userData = users.filter(user => user.id === userId)
         return userData[0].name
     }
-    let dynamicColorAndName = Math.round(userId * 364650) + 1
+    let dynamicColorAndName = Math.round(userId * 255255) + 1
     let imageSrc = `https://via.placeholder.com/150/${dynamicColorAndName}?text=.`
 
     return (
@@ -19,7 +19,7 @@ const Album = (props) => {
                 <div className={classes.albumItemWrapper}>
                     <img src={imageSrc} className={classes.albumImg} />
                     <div className={classes.albumName}>{getUserName(userId)}</div>
-                    <span className={classes.albumTitle}>{title}</span>
+                    <span className={classes.albumTitle} title={title}>{title}</span>
 
                 </div>
             </Link>

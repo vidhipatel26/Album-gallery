@@ -15,13 +15,17 @@ const PhotoCard = (props) => {
     const customStyles = {
         content: {
             background: 'rgba(0,0,0,0.7)',
-            width: '60%',
-            height: '70%',
+            width: '100%',
+            height: '100%',
             left: '0',
             right: '0',
             margin: '0 auto',
             top: '50%',
-            transform: 'translateY(-50%)'
+            transform: 'translateY(-50%)',
+            padding: '0px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
         }
     }
     return (
@@ -43,7 +47,7 @@ const PhotoCard = (props) => {
                 </Modal>
 
                 <div className={classes.photoDesc}>
-                    <p>{title}</p>
+                    <p title={title}>{title}</p>
                 </div>
             </div>
         </>

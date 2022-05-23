@@ -200,12 +200,4 @@ const Pagination = (props) => {
   );
 }
 
-
-Pagination.propTypes = {
-  totalRecords: PropTypes.number.isRequired,
-  pageLimit: PropTypes.number,
-  pageNeighbours: PropTypes.number,
-  onPageChanged: PropTypes.func
-};
-
 export default Pagination;
