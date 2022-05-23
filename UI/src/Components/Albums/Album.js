@@ -4,26 +4,33 @@ import classes from '../../css/Common.module.css'
 import useAppSelector from '../../Redux/hooks';
 
 const Album = (props) => {
-    const users = useAppSelector((state) => state.userList.users)
+    const { isError, users } = useAppSelector((state) => state.userList)
     const { id = "", title = "", userId = "" } = props.albums || {};
     const getUserName = (userId) => {
-        const userData = users.filter(user => user.id === userId)
-        return userData[0].name
+        const userData = users && users.filter(user => user.id === userId)
+        return userData[0] && userData[0].name
     }
     let dynamicColorAndName = Math.round(userId * 255255) + 1
     let imageSrc = `https://via.placeholder.com/150/${dynamicColorAndName}?text=.`
 
     return (
-        <div className={classes.imgWrapper}>
-            <Link to={{ pathname: `/photos/albumId=${id}/activeUserId=${userId}/`, userId: userId, albumId: id}}>
-                <div className={classes.albumItemWrapper}>
-                    <img src={imageSrc} className={classes.albumImg} />
-                    <div className={classes.albumName}>{getUserName(userId)}</div>
-                    <span className={classes.albumTitle} title={title}>{title}</span>
-
+        <>
+            {isError ? (
+                <div className={classes.error}>
+                    <i class="material-icons error-icon">API Failed ! Please refresh the page.</i>
                 </div>
-            </Link>
-        </div>
+            ) :
+                <div className={classes.imgWrapper}>
+                    <Link to={{ pathname: `/photos/albumId=${id}/activeUserId=${userId}/`, userId: userId, albumId: id }}>
+                        <div className={classes.albumItemWrapper}>
+                            <img src={imageSrc} className={classes.albumImg} />
+                            <div className={classes.albumName}>{getUserName(userId)}</div>
+                            <span className={classes.albumTitle} title={title}>{title}</span>
+
+                        </div>
+                    </Link>
+                </div>}
+        </>
     )
 }
 

@@ -10,8 +10,9 @@ body {
 .imgWrapper {
   float: left;
   margin: 10px;
-  flex: 1 1 170px;
-  max-width: 170px;
+  flex: 1 1 190px;
+  max-width: 190px;
+  min-width: 190px
 }
 
 .photoDesc p {
@@ -38,9 +39,10 @@ body {
 .photoHolder {
   float: left;
   margin: 5px;
-  flex: 1 1 250px;
+  flex: 1 1 200px;
   cursor: pointer;
-  max-width: 250px;
+  max-width: 200px;
+  min-width: 200px;
 }
 
 .photoHolder img {
@@ -60,14 +62,13 @@ body {
 
 .albumWrapper {
   width: calc(100% - 80px);
-  height: calc(100vh - 200px);
+  height: calc(100vh - 100px);
   padding: 20px 40px;
   float: left;
   overflow-y: auto;
   display: flex;
   background: #fff;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .albumTitle {
@@ -114,16 +115,15 @@ a {
 }
 
 .albumOwner {
-  text-align: center;
+  text-align: left;
   font-size: 24px;
   font-weight: bold;
-  text-decoration: underline;
 }
 
 .ownerAlbumTitle {
-  margin: 15px;
+  margin: 0px 0 30px;
   font-size: 20px;
-  text-align: center;
+  text-align: left;
   text-transform: capitalize;
 }
 
@@ -131,7 +131,6 @@ a {
   width: 100%;
   float: left;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -188,11 +187,28 @@ select {
   color: #333;
 }
 
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 500px) {
+  .photoInnerWrapper {
+    justify-content: center;
+  }
+}
 @media only screen and (max-width: 425px) {
   .albumWrapper {
     padding: 20px;
     width: calc(100% - 40px);
     height: calc(100vh - 119px);
+    justify-content: center;
   }
 
   .photoWrapper {

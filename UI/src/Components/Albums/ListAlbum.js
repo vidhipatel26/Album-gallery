@@ -10,8 +10,9 @@ import classes from '../../css/Common.module.css'
 const ListAlbum = () => {
 
     const { albumsList, loader } = useAlbumListDetails()
-    const { albums, pageLimit  } = useAppSelector((state) => state.albumList)
+    const { albums, pageLimit } = useAppSelector((state) => state.albumList)
     const [currentAlbums, setCurrentAlbums] = useState(albums)
+    const isError = useAppSelector((state) => state.usersList)
 
     useEffect(() => {
         albumsList(pageLimit)
@@ -28,22 +29,25 @@ const ListAlbum = () => {
 
     return (
         <>
-            {!loader ?
+            {isError ? (
+                <div className={classes.error}>
+                    <i class="material-icons error-icon">error_outline</i>
+                </div>
+            ) : !loader ?
                 <>
                     <Pagination
                         totalRecords={albums.length}
                         pageNeighbours={1}
                         onPageChanged={onPageChanged}
                     />
-                    <div className={classes.albumGalleryTitle}>Album Gallery</div>
+                    {/* <div className={classes.albumGalleryTitle}>Album Gallery</div> */}
                     <div className={classes.albumWrapper} >
                         {currentAlbums.map(albums => (
-                            <Album key={albums.id} albums={albums}/>
+                            <Album key={albums.id} albums={albums} />
                         ))}
                     </div>
                 </>
-                :
-                <Loader />
+                : <Loader />
             }
         </>
     )

@@ -11,16 +11,16 @@ const useUserListDispatch = () => {
         })
     }
 
-    const updateUserId = (userId) => {
+    const updateErrorStatus = (isError) => {
         dispatch({
-            type: types.USER_ID,
-            payload: userId,
+            type: types.UPDATE_ERROR_STATUS,
+            payload: isError,
         })
     }
 
     return {
         updateUserList,
-        updateUserId
+        updateErrorStatus
     }
 }
 

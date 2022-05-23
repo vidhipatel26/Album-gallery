@@ -2,7 +2,7 @@ import * as types from '../ActionTypes/Types'
 
 const initialState = {
     users: [],
-    userId: null
+    isError: false
 };
 
 const userListReducer = (state = initialState, action) => {
@@ -11,8 +11,8 @@ const userListReducer = (state = initialState, action) => {
         case types.UPDATE_USER_LIST:
             return { ...state, users: action.payload }
 
-        case types.USER_ID:
-            return { ...state, userId: action.payload }
+        case types.UPDATE_ERROR_STATUS:
+            return { ...state, isError: action.payload }
 
         default:
             return state;

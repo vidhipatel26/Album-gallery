@@ -11,24 +11,24 @@ import useUserListDetails from '../../hooks/useUserListDetails'
 
 const ListPhoto = (props) => {
     const { photoList, loader } = usePhotoListDetails()
-    const { updateUserId } = useUserListDispatch()
     const photos = useAppSelector((state) => state.photoList.photos)
     const { albums, pageLimit } = useAppSelector((state) => state.albumList)
-    const { users, userId } = useAppSelector((state) => state.userList)
+    const { users, isError } = useAppSelector((state) => state.userList)
+
     const pathName = props.location.pathname.split('/')
     const activeUserId = Number(pathName.find((e) => e.includes('active')).split('=')[1])
-    const clickedUserId = userId || activeUserId
-    const clickedAlbumId = Number(props.location.albumId) || Number((props.match.params.id).split('=')[1])
-    const userData = users.filter(user => user.id === clickedUserId)
+    const clickedAlbumId = Number((props.match.params.id).split('=')[1])
+
+    const userData = users.filter(user => user.id === activeUserId)
     const albumData = albums && albums.filter(album => album.id === clickedAlbumId)
     const userName = userData && userData.length > 0 && userData[0].name || ''
     const albumTitle = albumData && albumData.length > 0 && albumData[0].title || ''
+
     const [currentPhotoes, setCurrentPhotoes] = useState(photos)
     const { albumsList } = useAlbumListDetails()
     const { usersList } = useUserListDetails()
 
     useEffect(() => {
-        updateUserId(clickedUserId)
         photoList(clickedAlbumId)
         if (!albums.length > 0) {
             albumsList(pageLimit)
@@ -43,14 +43,18 @@ const ListPhoto = (props) => {
         const { currentPage, pageLimit } = data;
 
         const offset = (currentPage - 1) * pageLimit;
-        const currentPhotoes = photos.slice(offset, offset + pageLimit);
+        const currentPhotoes = photos.length > 0 && photos.slice(offset, offset + pageLimit);
 
         setCurrentPhotoes(currentPhotoes)
     }
 
     return (
         <>
-            {!loader ?
+            {isError ? (
+                <div className={classes.error}>
+                    <i class="material-icons error-icon">API Failed ! Please refresh the page.</i>
+                </div>
+            ) : !loader ?
                 <>
                     <Pagination
                         totalRecords={photos.length}
@@ -58,17 +62,16 @@ const ListPhoto = (props) => {
                         onPageChanged={onPageChanged}
                     />
                     <div className={classes.photoWrapper}>
-                        <div className={classes.albumOwner}>{userName + 'Album'}</div>
+                        <div className={classes.albumOwner}>{userName + ' Album'}</div>
                         <div className={classes.ownerAlbumTitle}>{albumTitle}</div>
                         <div className={classes.photoInnerWrapper} >
-                            {currentPhotoes.map(photos => (
-                                <PhotoCard key={photos.id} photos={photos} albumTitle={albumTitle} userName={userName}/>
+                            {currentPhotoes.length > 0 && currentPhotoes.map(photos => (
+                                <PhotoCard key={photos.id} photos={photos} albumTitle={albumTitle} userName={userName} />
                             ))}
                         </div>
                     </div>
                 </>
-                :
-                <Loader />
+                : <Loader />
             }
         </>
     )
