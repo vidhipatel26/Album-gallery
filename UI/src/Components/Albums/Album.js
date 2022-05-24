@@ -23,7 +23,7 @@ const Album = (props) => {
                 <div className={classes.imgWrapper}>
                     <Link to={{ pathname: `/photos/albumId=${id}/activeUserId=${userId}/`, userId: userId, albumId: id }}>
                         <div className={classes.albumItemWrapper}>
-                            <img src={imageSrc} className={classes.albumImg} />
+                            <img src={imageSrc} className={classes.albumImg} alt="thumbnail"/>
                             <div className={classes.albumName}>{getUserName(userId)}</div>
                             <span className={classes.albumTitle} title={title}>{title}</span>
 

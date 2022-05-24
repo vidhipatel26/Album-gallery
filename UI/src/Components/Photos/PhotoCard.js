@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 const PhotoCard = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const { id = "", title = "", url = "", thumbnailUrl = "" } =
+    const { title = "", url = "", thumbnailUrl = "" } =
         props.photos || {};
 
     const toggleModal = () => {

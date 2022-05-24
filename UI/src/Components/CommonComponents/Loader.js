@@ -4,7 +4,7 @@ import loading from '../../Images/loading.gif'
 const  Loader = () => {
   return (
     <div className="loader">
-      <img src={loading} />
+      <img src={loading}/>
     </div>
   );
 }
