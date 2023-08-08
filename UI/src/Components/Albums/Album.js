@@ -12,6 +12,7 @@ const Album = (props) => {
     }
     let dynamicColorAndName = Math.round(userId * 255255) + 1
     let imageSrc = `https://via.placeholder.com/150/${dynamicColorAndName}?text=.`
+    console.log('vidhi')
 
     return (
         <>
